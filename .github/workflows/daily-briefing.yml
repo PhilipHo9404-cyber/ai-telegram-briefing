@@ -1,0 +1,40 @@
+name: Daily AI Briefing
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 0 * * *"
+
+jobs:
+  send-briefing:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run briefing pipeline
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_API_STYLE: ${{ secrets.LLM_API_STYLE }}
+          LLM_USE_JSON_SCHEMA: ${{ secrets.LLM_USE_JSON_SCHEMA }}
+          LLM_EXTRA_HEADERS_JSON: ${{ secrets.LLM_EXTRA_HEADERS_JSON }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SOURCES_FILE: config/sources.json
+          LOOKBACK_HOURS: 30
+          MAX_CANDIDATES: 18
+          MAX_ITEMS_IN_BRIEF: 6
+          MIN_RELEVANCE_SCORE: 5.0
+          OUTPUT_DIR: output
+          TIMEZONE: Asia/Shanghai
+        run: python run_daily_briefing.py
