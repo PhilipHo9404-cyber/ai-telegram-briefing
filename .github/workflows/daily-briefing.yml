@@ -3,7 +3,8 @@ name: Daily AI Briefing
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 0 * * *"
+    - cron: "25 7 * * *"
+      timezone: "Asia/Shanghai"
 
 jobs:
   send-briefing:
