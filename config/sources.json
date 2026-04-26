@@ -1,27 +1,116 @@
 [
   {
+    "id": "reuters-google-news",
+    "name": "Reuters via Google News",
+    "url": "https://news.google.com/rss/search?q=(AI+OR+OpenAI+OR+Microsoft+Copilot+OR+Google+Gemini+OR+Meta+AI+OR+Bedrock)+AND+(pricing+OR+earnings+OR+revenue+OR+acquisition+OR+regulation+OR+privacy+OR+copyright+OR+partnership)&hl=en-US&gl=US&ceid=US:en",
+    "priority": 10,
+    "include_keywords": [
+      "pricing",
+      "earnings",
+      "revenue",
+      "acquisition",
+      "merger",
+      "regulation",
+      "copyright",
+      "privacy",
+      "partnership",
+      "enterprise",
+      "deployment"
+    ],
+    "exclude_keywords": [
+      "benchmark",
+      "paper",
+      "developer guide"
+    ],
+    "allowed_source_labels": [
+      "Reuters"
+    ],
+    "blocked_title_keywords": [
+      "live updates",
+      "video"
+    ]
+  },
+  {
+    "id": "venturebeat-ai",
+    "name": "VentureBeat AI",
+    "url": "https://venturebeat.com/category/ai/feed/",
+    "priority": 9,
+    "include_keywords": [
+      "enterprise",
+      "agent",
+      "customer",
+      "roi",
+      "deployment",
+      "pricing",
+      "revenue",
+      "funding",
+      "acquisition",
+      "governance"
+    ],
+    "exclude_keywords": [
+      "benchmark",
+      "paper",
+      "research roundup"
+    ],
+    "blocked_title_keywords": [
+      "benchmark",
+      "research roundup"
+    ]
+  },
+  {
+    "id": "techcrunch-ai",
+    "name": "TechCrunch AI",
+    "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+    "priority": 8,
+    "include_keywords": [
+      "enterprise",
+      "funding",
+      "acquisition",
+      "customer",
+      "revenue",
+      "agent",
+      "pricing",
+      "business",
+      "regulation",
+      "partnership"
+    ],
+    "exclude_keywords": [
+      "benchmark",
+      "research paper",
+      "open source release"
+    ],
+    "blocked_title_keywords": [
+      "strictlyvc",
+      "ticket",
+      "webinars",
+      "paywalls",
+      "doomscrolling",
+      "consumer app",
+      "why tokyo",
+      "community",
+      "hardware strategy"
+    ]
+  },
+  {
     "id": "openai-news",
     "name": "OpenAI News",
     "url": "https://openai.com/news/rss.xml",
-    "priority": 7,
+    "priority": 8,
     "include_keywords": [
       "enterprise",
       "business",
       "customer",
-      "adoption",
       "pricing",
-      "agent",
+      "partnership",
+      "adoption",
       "workflow",
-      "productivity",
-      "partnership"
+      "roi"
     ],
     "exclude_keywords": [
       "system card",
       "benchmark",
       "safety",
-      "policy",
       "academy",
-      "learn",
       "guide",
       "tutorial"
     ],
@@ -37,102 +126,62 @@
     ]
   },
   {
-    "id": "techcrunch-ai",
-    "name": "TechCrunch AI",
-    "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
-    "priority": 7,
-    "include_keywords": [
-      "enterprise",
-      "startup",
-      "funding",
-      "copilot",
-      "agent",
-      "customer",
-      "revenue",
-      "workspace",
-      "automation"
-    ],
-    "exclude_keywords": [
-      "benchmark",
-      "open source release",
-      "research paper"
-    ],
-    "blocked_title_keywords": [
-      "strictlyvc",
-      "ticket",
-      "doomscrolling",
-      "creator tools",
-      "webinars",
-      "paywalls",
-      "gpu crunch",
-      "galaxy hunters",
-      "ai chips",
-      "amazon ai cpus"
-    ]
-  },
-  {
     "id": "microsoft-ai-blog",
     "name": "Microsoft AI Blog",
     "url": "https://blogs.microsoft.com/ai/feed/",
-    "priority": 9,
+    "priority": 10,
     "include_keywords": [
       "enterprise",
       "copilot",
       "customer",
       "customers",
       "business",
+      "pricing",
       "adoption",
-      "sales",
-      "workflow",
-      "productivity",
-      "partner",
-      "partnership",
-      "contact center",
-      "contact centres",
       "customer engagement",
       "healthcare",
-      "clinical",
-      "governance"
+      "manufacturing",
+      "retail",
+      "financial services"
     ],
     "exclude_keywords": [
       "gaming",
       "xbox",
-      "research paper",
-      "benchmark"
+      "benchmark",
+      "research paper"
     ],
     "blocked_title_keywords": [
       "gaming",
       "xbox",
       "consumer tips",
       "how to",
-      "open sources",
-      "responsibly"
+      "open source",
+      "responsibly",
+      "dolphins",
+      "math tutoring",
+      "hard of hearing"
     ]
   },
   {
     "id": "microsoft-news",
     "name": "Microsoft News",
     "url": "https://news.microsoft.com/feed/",
-    "priority": 7,
+    "priority": 9,
     "include_keywords": [
       "ai",
       "copilot",
       "enterprise",
       "customer",
-      "partner",
       "business",
-      "adoption",
-      "sales",
-      "work",
-      "productivity",
+      "pricing",
       "healthcare",
       "clinical documentation",
-      "customer engagement"
+      "customer engagement",
+      "earnings"
     ],
     "exclude_keywords": [
       "gaming",
       "xbox",
-      "research",
       "security update",
       "patch"
     ],
@@ -147,10 +196,74 @@
     ]
   },
   {
+    "id": "google-ai-blog",
+    "name": "Google AI Blog",
+    "url": "https://blog.google/technology/ai/rss/",
+    "priority": 7,
+    "include_keywords": [
+      "gemini",
+      "enterprise",
+      "workspace",
+      "customer",
+      "pricing",
+      "partnership",
+      "deployment",
+      "governance",
+      "security",
+      "productivity"
+    ],
+    "exclude_keywords": [
+      "research",
+      "benchmark",
+      "developer guide"
+    ],
+    "blocked_title_keywords": [
+      "how to",
+      "developer",
+      "research",
+      "tips",
+      "travel smarter",
+      "personalized images",
+      "chrome",
+      "ads advisor"
+    ]
+  },
+  {
+    "id": "meta-news",
+    "name": "Meta News",
+    "url": "https://about.fb.com/news/feed/",
+    "priority": 8,
+    "include_keywords": [
+      "ai",
+      "llama",
+      "enterprise",
+      "business",
+      "advertising",
+      "partnership",
+      "pricing",
+      "deployment"
+    ],
+    "exclude_keywords": [
+      "gaming",
+      "consumer tips",
+      "community"
+    ],
+    "blocked_title_keywords": [
+      "gaming",
+      "community",
+      "creator fund",
+      "open source",
+      "parents",
+      "teens",
+      "threads",
+      "creators"
+    ]
+  },
+  {
     "id": "salesforce-news",
     "name": "Salesforce News",
     "url": "https://www.salesforce.com/news/feed/",
-    "priority": 9,
+    "priority": 10,
     "include_keywords": [
       "ai",
       "agent",
@@ -167,8 +280,7 @@
       "orchestration",
       "governance",
       "life sciences",
-      "end-to-end workflows",
-      "deep context"
+      "workflow"
     ],
     "exclude_keywords": [
       "sports",
@@ -189,7 +301,7 @@
     "id": "nvidia-blog",
     "name": "NVIDIA Blog",
     "url": "https://blogs.nvidia.com/feed/",
-    "priority": 6,
+    "priority": 7,
     "include_keywords": [
       "enterprise",
       "customer",
@@ -200,8 +312,8 @@
       "deployment",
       "healthcare",
       "financial services",
-      "contact center",
-      "workflow"
+      "workflow",
+      "capex"
     ],
     "exclude_keywords": [
       "gaming",
@@ -215,14 +327,15 @@
       "robotics research",
       "benchmark",
       "early universe",
-      "infrastructure"
+      "infrastructure",
+      "consumer"
     ]
   },
   {
     "id": "hubspot-company-news",
     "name": "HubSpot Company News",
     "url": "https://www.hubspot.com/company-news/rss.xml",
-    "priority": 6,
+    "priority": 7,
     "include_keywords": [
       "ai",
       "customer",
@@ -251,7 +364,7 @@
     "id": "sap-news",
     "name": "SAP News",
     "url": "https://news.sap.com/feed/",
-    "priority": 7,
+    "priority": 8,
     "include_keywords": [
       "ai",
       "enterprise",
@@ -283,7 +396,7 @@
     "id": "intuit-blog",
     "name": "Intuit Blog",
     "url": "https://www.intuit.com/blog/feed/",
-    "priority": 6,
+    "priority": 7,
     "include_keywords": [
       "ai",
       "customer",
@@ -304,131 +417,53 @@
     "blocked_title_keywords": [
       "tax tips",
       "consumer",
-      "personal finance"
+      "personal finance",
+      "for consumers"
     ]
   },
   {
-    "id": "venturebeat-ai",
-    "name": "VentureBeat AI",
-    "url": "https://venturebeat.com/category/ai/feed/",
+    "id": "google-news-policy-capital-whitelist",
+    "name": "Google News - Policy Capital Consulting Whitelist",
+    "url": "https://news.google.com/rss/search?q=(AI+regulation+OR+AI+copyright+OR+AI+privacy+OR+AI+lawsuit+OR+AI+earnings+OR+AI+IPO+OR+AI+acquisition+OR+AI+McKinsey+OR+AI+BCG+OR+AI+Gartner)&hl=en-US&gl=US&ceid=US:en",
     "priority": 8,
     "include_keywords": [
-      "enterprise",
-      "business",
-      "agent",
-      "customer",
-      "funding",
-      "pricing",
-      "deployment",
-      "workflow"
-    ],
-    "exclude_keywords": [
-      "benchmark",
-      "paper"
-    ]
-  },
-  {
-    "id": "google-news-ai-enterprise",
-    "name": "Google News - AI Enterprise Trusted",
-    "url": "https://news.google.com/rss/search?q=AI+enterprise+software+customer+OR+AI+agent+deployment+OR+AI+partnership+enterprise&hl=en-US&gl=US&ceid=US:en",
-    "priority": 5,
-    "include_keywords": [
-      "enterprise",
-      "agent",
-      "workflow",
-      "automation",
-      "customer",
-      "deployment",
-      "partnership",
-      "adoption"
-    ],
-    "exclude_keywords": [
-      "benchmark",
-      "research",
-      "paper"
-    ],
-    "allowed_source_labels": [
-      "Reuters",
-      "Bloomberg",
-      "TechTarget",
-      "CIO",
-      "Computerworld",
-      "ZDNET",
-      "InfoWorld",
-      "The Register",
-      "SiliconANGLE",
-      "Fortune",
-      "CNBC",
-      "Financial Times",
-      "The Information",
-      "eWeek"
-    ],
-    "blocked_source_labels": [
-      "openPR.com",
-      "Business Wire",
-      "PR Newswire",
-      "GlobeNewswire",
-      "AccessWire",
-      "Insider Monkey",
-      "Let's Data Science",
-      "Tekedia",
-      "AeroTime",
-      "HPCwire",
-      "BetaNews",
-      "PYMNTS.com",
-      "Infosecurity Magazine"
-    ],
-    "blocked_title_keywords": [
-      "market",
-      "q&a",
-      "competition heats up"
-    ]
-  },
-  {
-    "id": "google-news-ai-funding",
-    "name": "Google News - AI Funding Trusted",
-    "url": "https://news.google.com/rss/search?q=AI+startup+funding+OR+AI+acquisition+OR+AI+revenue+enterprise+OR+AI+partnership&hl=en-US&gl=US&ceid=US:en",
-    "priority": 6,
-    "include_keywords": [
-      "funding",
+      "regulation",
+      "copyright",
+      "privacy",
+      "lawsuit",
+      "earnings",
+      "ipo",
       "acquisition",
-      "valuation",
-      "revenue",
-      "enterprise",
-      "startup",
-      "customer",
-      "commercial"
+      "pricing",
+      "revenue"
     ],
     "exclude_keywords": [
-      "research",
+      "benchmark",
       "paper",
-      "benchmark"
+      "tutorial"
     ],
     "allowed_source_labels": [
-      "TechCrunch",
       "Reuters",
-      "Bloomberg",
-      "Crunchbase News",
-      "Fortune",
-      "CNBC",
-      "Axios",
-      "The Information",
-      "Sifted",
-      "VentureBeat"
+      "VentureBeat",
+      "TechCrunch",
+      "McKinsey & Company",
+      "BCG",
+      "Gartner"
     ],
     "blocked_source_labels": [
-      "openPR.com",
       "Business Wire",
       "PR Newswire",
       "GlobeNewswire",
       "AccessWire",
-      "Insider Monkey",
-      "Tekedia"
+      "openPR.com",
+      "Insider Monkey"
     ],
     "blocked_title_keywords": [
       "market",
+      "stocks to watch",
       "price target",
-      "stock"
+      "politics",
+      "election"
     ]
   }
 ]

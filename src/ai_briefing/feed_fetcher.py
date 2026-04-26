@@ -8,7 +8,7 @@ from html import unescape
 from html.parser import HTMLParser
 from typing import Iterable
 from urllib.error import HTTPError, URLError
-from urllib.parse import urljoin, urlparse
+from urllib.parse import quote, urlencode, urljoin, urlparse, urlunparse, parse_qsl
 from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
 
@@ -194,8 +194,9 @@ def _parse_atom(root: ET.Element, source: SourceConfig) -> list[Article]:
 
 
 def _http_get_text(url: str, accept: str = "application/rss+xml, application/atom+xml, text/xml, application/xml, text/html;q=0.9") -> str:
+    normalized_url = _normalize_url(url)
     request = Request(
-        url,
+        normalized_url,
         headers={
             "User-Agent": USER_AGENT,
             "Accept": accept,
@@ -207,9 +208,24 @@ def _http_get_text(url: str, accept: str = "application/rss+xml, application/ato
             charset = response.headers.get_content_charset() or "utf-8"
             return response.read().decode(charset, errors="replace")
     except HTTPError as exc:
-        raise RuntimeError(f"HTTP {exc.code} while fetching {url}") from exc
+        raise RuntimeError(f"HTTP {exc.code} while fetching {normalized_url}") from exc
     except URLError as exc:
-        raise RuntimeError(f"Network error while fetching {url}: {exc.reason}") from exc
+        raise RuntimeError(f"Network error while fetching {normalized_url}: {exc.reason}") from exc
+
+
+def _normalize_url(url: str) -> str:
+    parsed = urlparse(url)
+    if not parsed.scheme or not parsed.netloc:
+        return url
+
+    path = quote(parsed.path or "/", safe="/:%-._~")
+    query_pairs = parse_qsl(parsed.query, keep_blank_values=True)
+    if query_pairs:
+        query = urlencode(query_pairs, doseq=True)
+    else:
+        query = quote(parsed.query, safe="=&:%-._~+")
+
+    return urlunparse((parsed.scheme, parsed.netloc, path, parsed.params, query, parsed.fragment))
 
 
 def _find_text(node: ET.Element, path: str) -> str:
@@ -266,4 +282,3 @@ def _parse_datetime(raw: str) -> datetime | None:
         return parsed.astimezone(timezone.utc)
     except ValueError:
         return None
-
