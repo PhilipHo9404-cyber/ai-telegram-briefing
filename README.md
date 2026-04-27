@@ -95,7 +95,7 @@ LLM_USE_JSON_SCHEMA=true
 
 ```env
 OPENAI_API_KEY=mg_xxx
-OPENAI_MODEL=openai/gpt-5-mini
+OPENAI_MODEL=gpt-5.4
 LLM_BASE_URL=https://api.modelgate.example/v1
 LLM_API_STYLE=chat_completions
 LLM_USE_JSON_SCHEMA=false

@@ -55,7 +55,7 @@ git push -u origin main
 
 ```text
 OPENAI_API_KEY=你的modelgate_key
-OPENAI_MODEL=gpt-5-mini
+OPENAI_MODEL=gpt-5.4
 LLM_BASE_URL=https://mg.aid.pub/v1
 LLM_API_STYLE=chat_completions
 LLM_USE_JSON_SCHEMA=true

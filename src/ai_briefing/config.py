@@ -54,7 +54,7 @@ def load_app_config(project_root: Path) -> AppConfig:
     return AppConfig(
         llm=LLMConfig(
             api_key=_required_env("OPENAI_API_KEY"),
-            model=os.getenv("OPENAI_MODEL", "").strip() or "gpt-5-mini",
+            model=os.getenv("OPENAI_MODEL", "").strip() or "gpt-5.4",
             base_url=(os.getenv("LLM_BASE_URL", "").strip() or "https://api.openai.com/v1").rstrip("/"),
             api_style=(os.getenv("LLM_API_STYLE", "").strip() or "chat_completions"),
             use_json_schema=_parse_bool(os.getenv("LLM_USE_JSON_SCHEMA", "true")),
