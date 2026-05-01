@@ -98,27 +98,60 @@ def build_daily_brief(
     if not parsed:
         return fallback_brief(articles[:max_items], today)
 
-    items = [
-        BriefItem(
-            title=item["title"],
-            summary=item["summary"],
-            business_angle=item["business_angle"],
-            source_name=item["source_name"],
-            source_url=item["source_url"],
-            published_at=item["published_at"],
-        )
-        for item in parsed.get("items", [])
-    ]
+    items = normalize_brief_items(parsed.get("items", []))
 
     if not items:
         return fallback_brief(articles[:max_items], today)
 
     return DailyBrief(
-        brief_title=parsed["brief_title"],
-        summary_intro=parsed["summary_intro"],
+        brief_title=str(parsed.get("brief_title") or f"AI 商业简报 | {today.strftime('%Y-%m-%d')}"),
+        summary_intro=str(parsed.get("summary_intro") or "今日简报已根据候选资讯生成。"),
         items=items,
         signals=list(parsed.get("signals", [])),
     )
+
+
+def normalize_brief_items(raw_items: object) -> list[BriefItem]:
+    if not isinstance(raw_items, list):
+        return []
+
+    items: list[BriefItem] = []
+    for raw_item in raw_items:
+        if not isinstance(raw_item, dict):
+            continue
+
+        title = _clean_required_text(raw_item.get("title"))
+        source_name = _clean_required_text(raw_item.get("source_name"))
+        source_url = _clean_required_text(raw_item.get("source_url"))
+        if not title or not source_name or not source_url:
+            continue
+
+        items.append(
+            BriefItem(
+                title=title,
+                summary=_clean_optional_text(raw_item.get("summary"), "原始材料较少，建议点开原文查看。"),
+                business_angle=_clean_optional_text(
+                    raw_item.get("business_angle"),
+                    "该消息与企业落地、产品化或商业进展相关。",
+                ),
+                source_name=source_name,
+                source_url=source_url,
+                published_at=_clean_optional_text(raw_item.get("published_at"), ""),
+            )
+        )
+    return items
+
+
+def _clean_required_text(value: object) -> str:
+    if not isinstance(value, str):
+        return ""
+    return value.strip()
+
+
+def _clean_optional_text(value: object, fallback: str) -> str:
+    if not isinstance(value, str):
+        return fallback
+    return value.strip() or fallback
 
 
 def call_llm_for_brief(llm_config: LLMConfig, user_prompt: str) -> dict | None:

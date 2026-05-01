@@ -117,7 +117,7 @@ LLM_EXTRA_HEADERS_JSON={"X-Provider":"modelgate"}
 - `TELEGRAM_BOT_TOKEN`
 - `TELEGRAM_CHAT_ID`
 
-Actions 默认每天北京时间 `08:30` 运行一次。你可以自行改 cron。
+Actions 默认每天北京时间 `07:25` 运行一次。你可以自行改 cron。
 
 ## 如何调优信源
 
