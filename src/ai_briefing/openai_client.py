@@ -50,6 +50,10 @@ Rules:
 - Use only the facts present in the provided source material.
 - Do not infer unverified numbers, partners, customers, or timelines.
 - Prefer application, commercialization, adoption, enterprise workflow, go-to-market, revenue, funding, partnerships, and productization angles.
+- Write for a decision-maker who wants judgment, not a news digest.
+- In each business_angle, go deeper than "this matters": explain why now, who is affected, what commercial lever is changing, and what to watch next.
+- Distinguish confirmed facts from cautious implications. Use phrases like "这可能意味着" only when the implication follows from the evidence.
+- Avoid generic claims such as "提升效率" or "加速落地" unless you tie them to a specific customer workflow, revenue model, distribution channel, cost structure, or competitive position.
 - Exclude items that are mostly about benchmarks, academic research, safety reports, or model internals unless the business impact is explicit in the evidence.
 - Every output item must preserve the source_name, source_url, and published_at taken from the input.
 - If the evidence is too thin, omit the item instead of guessing.
@@ -78,8 +82,8 @@ def build_daily_brief(
             "relevance_score": round(article.score, 2),
             "score_reasons": article.score_reasons,
             "summary": article.summary[:500],
-            "content_excerpt": article.content[:700],
-            "fetched_excerpt": article.fetched_excerpt[:700],
+            "content_excerpt": article.content[:900],
+            "fetched_excerpt": article.fetched_excerpt[:900],
         }
         for article in articles[:candidate_limit]
     ]
@@ -88,6 +92,12 @@ def build_daily_brief(
         "Create a Chinese-language daily AI business briefing for one decision-maker.\n"
         f"Choose at most {max_items} items.\n"
         "Focus on why each item matters commercially or strategically.\n"
+        "Write a more analytical business_angle for each item, using 2-3 compact Chinese sentences.\n"
+        "For business_angle, cover: (1) why this matters now, (2) which buyers, vendors, developers, investors, or incumbents are affected, "
+        "and (3) what concrete adoption, monetization, channel, margin, regulation, or competitive signal to watch next.\n"
+        "Keep summary factual and concise; put interpretation in business_angle.\n"
+        "Make summary_intro synthesize the day's business pattern instead of listing headlines.\n"
+        "Make signals cross-item market signals, not restatements of individual titles.\n"
         "For each item, keep the original source link unchanged.\n"
         "Return JSON only.\n"
         "Input articles JSON:\n"
@@ -128,18 +138,31 @@ def normalize_brief_items(raw_items: object) -> list[BriefItem]:
 
         items.append(
             BriefItem(
-                title=title,
-                summary=_clean_optional_text(raw_item.get("summary"), "原始材料较少，建议点开原文查看。"),
-                business_angle=_clean_optional_text(
-                    raw_item.get("business_angle"),
-                    "该消息与企业落地、产品化或商业进展相关。",
+                title=_clamp_text(title, 120),
+                summary=_clamp_text(
+                    _clean_optional_text(raw_item.get("summary"), "原始材料较少，建议点开原文查看。"),
+                    220,
                 ),
-                source_name=source_name,
+                business_angle=_clamp_text(
+                    _clean_optional_text(
+                        raw_item.get("business_angle"),
+                        "该消息与企业落地、产品化或商业进展相关。",
+                    ),
+                    420,
+                ),
+                source_name=_clamp_text(source_name, 80),
                 source_url=source_url,
-                published_at=_clean_optional_text(raw_item.get("published_at"), ""),
+                published_at=_clamp_text(_clean_optional_text(raw_item.get("published_at"), ""), 80),
             )
         )
     return items
+
+
+def _clamp_text(text: str, max_chars: int) -> str:
+    value = " ".join(text.split())
+    if len(value) <= max_chars:
+        return value
+    return value[: max_chars - 1].rstrip() + "…"
 
 
 def _clean_required_text(value: object) -> str:
